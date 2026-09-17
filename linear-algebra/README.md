@@ -1,20 +1,24 @@
 # Vector Maths Toolkit
 
-A very basic, interactive tool for learning common vector operations in Python without using NumPy.
+> Note: This README was written by AI.
 
-The project is intentionally small and uses Python lists and built-in operations so that the underlying calculations are easy to read and understand.
+A small, interactive learning tool for common vector operations in Python without using NumPy.
+
+The project intentionally uses plain Python lists and basic arithmetic so the calculations are easy to follow and understand.
 
 ## Features
 
 - Add two vectors with the same number of components.
 - Subtract one vector from another.
-- Multiply every component of a vector by a scalar.
+- Multiply every element of a vector by a scalar.
 - Check whether two vectors are linearly dependent.
+- Compute a linear combination of multiple vectors using corresponding scalars.
+- Transform a 2D vector using a 2x2 matrix built from two transformed basis vectors.
 
 ## Requirements
 
-- Python 3.10 or newer. The program uses Python's `match`/`case` statement.
-- No third-party packages are required.
+- Python 3.10 or newer. The script uses Python's `match`/`case` statement.
+- No third-party libraries are required.
 
 ## Run the tool
 
@@ -24,22 +28,26 @@ From this directory, run:
 python vector_tool.py
 ```
 
-You will be shown a menu:
+You will see this menu:
 
 ```text
+======== VECTOR MATHS TOOLKIT BUILT FOR LEARNING PURPOSE ========
+Please select an option from below:
 1. Vector Addition
 2. Vector Subtraction
 3. Scalar Multiplication
 4. Linear Dependence Check
+5. Linear Combinations
+6. Transform Vector
 ```
 
-Enter the number for the operation you want to try. When entering a vector, type its components separated by spaces. For example:
+When entering a vector, type its components separated by spaces. For example:
 
 ```text
 1 5 8
 ```
 
-Press Enter without entering a value to exit while entering a vector.
+Press Enter without entering any value to exit while entering a vector.
 
 ## Examples
 
@@ -83,12 +91,50 @@ Input second vector: 2 4
 Is Linear Dependent:  True
 ```
 
+### Linear combination
+
+The script can combine several vectors with scalar coefficients. For instance, if you enter:
+
+```text
+Input Vector 1: 1 2
+Input the scalar value: 3
+Input Vector 2: 4 5
+Input the scalar value: -1
+```
+
+it computes:
+
+$$
+3[1, 2] + (-1)[4, 5] = [-1, 1]
+$$
+
+### Transform vector with a 2x2 matrix
+
+This option expects the original vector and the transformed basis vectors for the x- and y-axes:
+
+```text
+Input the original vector: 3 4
+Input the transformed î basis vector: 2 0
+Input the transformed ĵ basis vector: 1 3
+Transformed Vector: [10.0, 12.0]
+```
+
+This computes:
+
+$$
+\begin{bmatrix} 2 & 1 \\ 0 & 3 \end{bmatrix}
+\begin{bmatrix} 3 \\ 4 \end{bmatrix}
+=
+\begin{bmatrix} 10 \\ 12 \end{bmatrix}
+$$
+
 ## Notes and limitations
 
 - Vectors must have matching dimensions for addition, subtraction, and linear-dependence checks.
-- Values are read as `float`, so results are displayed as floating-point numbers.
-- This is a learning project, not a replacement for a numerical computing library.
-- The linear-dependence check is designed for two vectors and compares calculated values directly, so very small floating-point rounding differences may affect the result.
+- A linear combination requires one scalar for each vector, and all vectors must have the same length.
+- The program reads values as `float`, so output is displayed as floating-point numbers.
+- The linear dependence check compares values directly after computing a scalar ratio from the first non-zero component, so tiny floating-point rounding differences may affect the result.
+- This is a learning project and not a replacement for a numerical computing library such as NumPy.
 
 ## Project structure
 
