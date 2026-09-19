@@ -87,8 +87,8 @@ class VectorMathsNoNumPy(VectorMaths):
 
         linear_comb = [0] * dimensions
         for i in range(len(vectors)):
-            scaled_vector = scalar_multiply(vectors[i], scalars[i])
-            linear_comb = add_vectors(linear_comb, scaled_vector)
+            scaled_vector = VectorMathsNoNumPy.scalar_multiply(vectors[i], scalars[i])
+            linear_comb = VectorMathsNoNumPy.add_vectors(linear_comb, scaled_vector)
 
         return linear_comb
 
@@ -147,7 +147,43 @@ class VectorMathsNoNumPy(VectorMaths):
         result[1][1] = matrix_1[1][0] * matrix_2[0][1] + matrix_1[1][1] * matrix_2[1][1]
         return result
 
+    def determinant_2x2_matrix(matrix_2x2):
+        """
+            The scalar value by which the elements scale in linear algebra. 
+            For 2x2 matrix, for example:
+            [a  b] 
+            [c  d]
+            Determinant is ad-bc
+        """
 
+        if len(matrix_2x2) != 2:
+            print('Matrix must be 2x2.')
+            return
+
+        if any(len(matrix_arr) != 2 for matrix_arr in matrix_2x2):
+            print('Matrix must be 2x2.')
+            return
+
+        return matrix_2x2[0][0] * matrix_2x2[1][1] - matrix_2x2[0][1] * matrix_2x2[1][0]
+
+    def determinant_3x3_matrix(matrix_3x3):
+        """
+            The scalar value by which the elements scale in linear algebra. 
+            For 3x3 matrix, for example:
+            [a  b   c] 
+            [d  e   f]
+            [g  h   i]
+            Determinant is a * det([[e, f], [h, i]]) - b * det([[d, f],[g, i]]) + c * det([[d, e], [g, h]])
+        """
+        if len(matrix_3x3) != 3:
+            print('Matrix must be 3x3.')
+            return
+
+        if any(len(matrix_arr) != 3 for matrix_arr in matrix_3x3):
+            print('Matrix must be 3x3.')
+            return
+
+        return matrix_3x3[0][0] * (matrix_3x3[1][1] * matrix_3x3[2][2] - matrix_3x3[2][1] * matrix_3x3[1][2]) - matrix_3x3[0][1] * (matrix_3x3[1][0] * matrix_3x3[2][2] - matrix_3x3[1][2] * matrix_3x3[2][0]) + matrix_3x3[0][2] * (matrix_3x3[1][0] * matrix_3x3[2][1] - matrix_3x3[1][1] * matrix_3x3[2][0])
 
     def input_vector(input_text, kill_program = True):
         while True:

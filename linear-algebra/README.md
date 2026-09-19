@@ -1,53 +1,45 @@
 # Vector Maths Toolkit
 
-> Note: This README was written by AI.
-
-A small, interactive learning tool for common vector operations in Python without using NumPy.
-
-The project intentionally uses plain Python lists and basic arithmetic so the calculations are easy to follow and understand.
+An interactive, dependency-free learning tool for vector and small-matrix operations in Python. The implementation uses plain lists and arithmetic instead of NumPy so the calculations remain easy to inspect.
 
 ## Features
 
-- Add two vectors with the same number of components.
-- Subtract one vector from another.
-- Multiply every element of a vector by a scalar.
+- Add and subtract vectors.
+- Multiply a vector by a scalar.
 - Check whether two vectors are linearly dependent.
-- Compute a linear combination of multiple vectors using corresponding scalars.
-- Transform a 2D vector using a 2x2 matrix built from two transformed basis vectors.
+- Compute a linear combination of vectors.
+- Apply one or more 2x2 transformations to a 2D vector.
+- Multiply two 2x2 matrices through the reusable implementation API.
+- Calculate 2x2 and 3x3 determinants.
 
 ## Requirements
 
-- Python 3.10 or newer. The script uses Python's `match`/`case` statement.
-- No third-party libraries are required.
+- Python 3.10 or newer. The command-line tool uses `match`/`case`.
+- No third-party libraries.
 
 ## Run the tool
 
 From this directory, run:
 
 ```bash
-python vector_tool.py
+python3 vector_tool.py
 ```
 
-You will see this menu:
+The menu provides these options:
 
 ```text
-======== VECTOR MATHS TOOLKIT BUILT FOR LEARNING PURPOSE ========
-Please select an option from below:
 1. Vector Addition
 2. Vector Subtraction
 3. Scalar Multiplication
 4. Linear Dependence Check
 5. Linear Combinations
 6. Transform Vector
+7. Multiple Transformation
+8. Find Determinant 2x2 Matrix
+9. Find Determinant 3x3 Matrix
 ```
 
-When entering a vector, type its components separated by spaces. For example:
-
-```text
-1 5 8
-```
-
-Press Enter without entering any value to exit while entering a vector.
+Enter vector components separated by spaces, for example `1 5 8`. Press Enter without a value at a vector prompt to exit that input flow. Values are parsed as floating-point numbers.
 
 ## Examples
 
@@ -59,31 +51,13 @@ Input second vector to add: 4 3
 Vector Addition Result:  [5.0, 8.0]
 ```
 
-This calculates:
-
 $$
-[1, 5] + [4, 3] = [1 + 4, 5 + 3] = [5, 8]
+[1, 5] + [4, 3] = [5, 8]
 $$
-
-### Vector subtraction
-
-```text
-Input vector to subtract from: 3 6
-Input second vector to subtract: 2 4
-Vector Subtraction Result:  [1.0, 2.0]
-```
-
-### Scalar multiplication
-
-```text
-Input the vector to scale: 4 9
-Input the scalar value: 5
-Result:  [20.0, 45.0]
-```
 
 ### Linear dependence
 
-Two vectors are linearly dependent when one is a scalar multiple of the other. For example, `[1, 2]` and `[2, 4]` are linearly dependent because the second vector is $2$ times the first.
+Two vectors are linearly dependent when one is a scalar multiple of the other. For example, `[1, 2]` and `[2, 4]` are dependent because the second vector is $2$ times the first.
 
 ```text
 Input first vector: 1 2
@@ -91,35 +65,9 @@ Input second vector: 2 4
 Is Linear Dependent:  True
 ```
 
-### Linear combination
+### Matrix transformation
 
-The script can combine several vectors with scalar coefficients. For instance, if you enter:
-
-```text
-Input Vector 1: 1 2
-Input the scalar value: 3
-Input Vector 2: 4 5
-Input the scalar value: -1
-```
-
-it computes:
-
-$$
-3[1, 2] + (-1)[4, 5] = [-1, 1]
-$$
-
-### Transform vector with a 2x2 matrix
-
-This option expects the original vector and the transformed basis vectors for the x- and y-axes:
-
-```text
-Input the original vector: 3 4
-Input the transformed î basis vector: 2 0
-Input the transformed ĵ basis vector: 1 3
-Transformed Vector: [10.0, 12.0]
-```
-
-This computes:
+The transformation option builds a matrix from the transformed x- and y-basis vectors. For example, `[2, 0]` and `[1, 3]` produce:
 
 $$
 \begin{bmatrix} 2 & 1 \\ 0 & 3 \end{bmatrix}
@@ -128,18 +76,28 @@ $$
 \begin{bmatrix} 10 \\ 12 \end{bmatrix}
 $$
 
+The multiple-transformation option repeats this process and prints each intermediate result.
+
+### Determinants
+
+For a 2x2 matrix:
+
+$$
+\det\begin{bmatrix} a & b \\ c & d \end{bmatrix} = ad - bc
+$$
+
+The 3x3 operation expands the determinant using its 2x2 minors.
+
+## Source files
+
+- `vector_maths_interface.py` defines the abstract operation interface.
+- `vector_maths_no_numpy.py` contains the plain-Python implementation.
+- `vector_tool.py` provides the interactive command-line interface.
+
 ## Notes and limitations
 
-- Vectors must have matching dimensions for addition, subtraction, and linear-dependence checks.
-- A linear combination requires one scalar for each vector, and all vectors must have the same length.
-- The program reads values as `float`, so output is displayed as floating-point numbers.
-- The linear dependence check compares values directly after computing a scalar ratio from the first non-zero component, so tiny floating-point rounding differences may affect the result.
-- This is a learning project and not a replacement for a numerical computing library such as NumPy.
-
-## Project structure
-
-```text
-linear-algebra/
-├── README.md
-└── vector_tool.py
-```
+- Vector operations that combine values require compatible dimensions.
+- Matrix operations currently support only 2x2 and 3x3 matrices.
+- Linear-dependence checks use direct floating-point comparisons, so tiny rounding differences may affect the result.
+- Invalid vector components are reprompted, but scalar and transformation-count prompts do not yet have equivalent recovery behavior.
+- There are currently no automated tests.
