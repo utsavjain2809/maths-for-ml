@@ -1,6 +1,9 @@
 import sys
 from vector_maths_interface import VectorMaths
 class VectorMathsNoNumPy(VectorMaths):
+    def __init__(self):
+        pass
+    @staticmethod
     def add_vectors(vector1, vector2):
         """
             Add two vectors with same dimensions. 
@@ -18,6 +21,7 @@ class VectorMathsNoNumPy(VectorMaths):
             return
         return [v1 + v2 for v1, v2 in zip(vector1, vector2)]
 
+    @staticmethod
     def subtract_vectors(vector1, vector2):
         """
             Subtract two vectors with same dimensions. 
@@ -35,6 +39,7 @@ class VectorMathsNoNumPy(VectorMaths):
             return
         return [v1 - v2 for v1, v2 in zip(vector1, vector2)]
 
+    @staticmethod
     def scalar_multiply(vector, scalar):
         """
             Scales the given vector by a scalar. 
@@ -46,6 +51,7 @@ class VectorMathsNoNumPy(VectorMaths):
         """
         return [v1 * scalar for v1 in vector]
 
+    @staticmethod
     def is_linear_dependent(vector1, vector2):
         """
             To check is the two vectors collapses into 1D single line. 
@@ -65,6 +71,7 @@ class VectorMathsNoNumPy(VectorMaths):
                 break
         return all(v2 == v1 * scalar for v1, v2 in zip(vector1, vector2))
 
+    @staticmethod
     def linear_combination(vectors, scalars):
         """
             Calculate Linear Combinations (w): Scale the vectors and then add them
@@ -92,6 +99,7 @@ class VectorMathsNoNumPy(VectorMaths):
 
         return linear_comb
 
+    @staticmethod
     def multiply_vector_2x2_matrix(matrix_2x2, vector):
         """
             Multiply 2x2 matrix with 2x1 column vector. 
@@ -120,6 +128,7 @@ class VectorMathsNoNumPy(VectorMaths):
         result[1] = matrix_2x2[1][0] * vector[0] + matrix_2x2[1][1] * vector[1]
         return result
 
+    @staticmethod
     def multiply_2x2_matrix(matrix_1, matrix_2):
         """
             Multiply 2x2 matrix with 2x2 matrix. 
@@ -147,6 +156,7 @@ class VectorMathsNoNumPy(VectorMaths):
         result[1][1] = matrix_1[1][0] * matrix_2[0][1] + matrix_1[1][1] * matrix_2[1][1]
         return result
 
+    @staticmethod
     def determinant_2x2_matrix(matrix_2x2):
         """
             The scalar value by which the elements scale in linear algebra. 
@@ -166,6 +176,7 @@ class VectorMathsNoNumPy(VectorMaths):
 
         return matrix_2x2[0][0] * matrix_2x2[1][1] - matrix_2x2[0][1] * matrix_2x2[1][0]
 
+    @staticmethod
     def determinant_3x3_matrix(matrix_3x3):
         """
             The scalar value by which the elements scale in linear algebra. 
@@ -185,6 +196,7 @@ class VectorMathsNoNumPy(VectorMaths):
 
         return matrix_3x3[0][0] * (matrix_3x3[1][1] * matrix_3x3[2][2] - matrix_3x3[2][1] * matrix_3x3[1][2]) - matrix_3x3[0][1] * (matrix_3x3[1][0] * matrix_3x3[2][2] - matrix_3x3[1][2] * matrix_3x3[2][0]) + matrix_3x3[0][2] * (matrix_3x3[1][0] * matrix_3x3[2][1] - matrix_3x3[1][1] * matrix_3x3[2][0])
 
+    @staticmethod
     def input_vector(input_text, kill_program = True):
         while True:
             try:

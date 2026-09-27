@@ -1,5 +1,4 @@
 from vector_maths_no_numpy import VectorMathsNoNumPy
-from vector_maths_interface import VectorMaths
 
 def main():
     print('======== VECTOR MATHS TOOLKIT BUILT FOR LEARNING PURPOSE ========')
